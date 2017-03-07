@@ -7,7 +7,7 @@ I have fat fingers :( so whenever I type on my new (to me) X1 Carbon, my thumbs 
 
 There is no hardware switch on these laptops (as on older Thinkpads) so I had to create one.
 
-I will create a script that switches on and off trackpad and in a second part I will link this script to a kwyboard shortcut (KDE Neo seems pretty good at that)
+I will create a script that switches on and off trackpad and in a second part I will link this script to a keyboard shortcut (KDE Neo seems pretty good at that)
 
 ### First part : the script
 
@@ -35,7 +35,7 @@ I will be using xinput to list available input devices.
 `xinput` says that Synaptics TouchPad is id=12 so I can list all it's properties using :
 
 ```zsh
-➜  ~ xinput --list-props 12
+➜  ~ /usr/bin/xinput --list-props "SynPS/2 Synaptics TouchPad"
 Device 'SynPS/2 Synaptics TouchPad':
         Device Enabled (139):   0
         Coordinate Transformation Matrix (141): 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
@@ -87,8 +87,8 @@ The one property we are looking for is the first one in the list `Device Enabled
 ```zsh
 #! /usr/bin/zsh
 if [[ `/usr/bin/xinput --list-props "SynPS/2 Synaptics TouchPad"| awk ' /Device Enabled/ { print $NF} '` = 0 ]] 
-        then /usr/bin/xinput set-prop 12 "Device Enabled" 1
-else /usr/bin/xinput set-prop 12 "Device Enabled" 0
+        then /usr/bin/xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1
+else /usr/bin/xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
 fi
 ```
 
