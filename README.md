@@ -86,7 +86,7 @@ The one property we are looking for is the first one in the list `Device Enabled
 
 ```zsh
 #! /usr/bin/zsh
-if [[ `/usr/bin/xinput --list-props 12 | awk ' /Device Enabled/ { print $NF} ' ` = 0 ]] 
+if [[ `/usr/bin/xinput --list-props "SynPS/2 Synaptics TouchPad"| awk ' /Device Enabled/ { print $NF} '` = 0 ]] 
         then /usr/bin/xinput set-prop 12 "Device Enabled" 1
 else /usr/bin/xinput set-prop 12 "Device Enabled" 0
 fi
